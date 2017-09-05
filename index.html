@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Neighborhood Map - Miami, FL Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap-4.0.0-beta-dist/css/bootstrap.css">
+</head>
+<body>
+    <div id="map"></div>
+    <div class="container">
+        <div id="mySidenav" class="sidenav"> <!--(8)-->            
+            <input id="searchInput" placeholder="Search…" type="search" data-bind="textInput: query" autocomplete="off"> <!--(12)-->
+            <div class="closebtn" onclick="closeNav()">&times;</div> <!--(8)-->
+            <div class="text-center" data-bind="foreach: koLocations"> <!--(9)-->                
+                <div class="locTitle" data-bind="click: function(data) {gotoMarker(id)}, visible: showLoc"> <!--(10, 13)-->                   
+                    <div class="title" data-bind="text: title"></div>
+                    <div class="street small" data-bind="text: street"></div>
+                    <div class="url small" data-bind="text: url"></div>
+                </div>
+            </div>
+        </div>
+        <div id="openbtn" onclick="openNav()">&#9776;  Search</div> <!--(8)-->
+        <div id="weatherBox">
+            <div id="weatherLoc">Miami, FL</div>
+            <div id="weatherSummary"></div>
+            <div id="weatherTemp"></div>
+            <div><span id="weatherHumid"></span><span id="weatherPrecip"></span></div>
+            <a href="https://darksky.net/poweredby/" id="weatherCallout">Powered by <span>Dark Sky</span></a>
+        </div>
+        <div id="nyTimesBox">
+            <div id="nytTitle">The NY Times</div>
+            <div id="nytSnippet">(Articles related to locations will display here when locations are clicked...)</div>
+            <a href="#" id="nytSnippetUrl"></a>
+        </div>
+        <div id="resetMap" onclick="initMap()">Reset Map</div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUQ2C_03Qglq2SP8lMDHimGX4unfLg7rM&callback=initMap" async defer></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/knockout-3.4.2.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
