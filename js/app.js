@@ -163,7 +163,7 @@ function nyTimesApiData(id) {
     $.getJSON(nytimesUrl, function (data) {
         articles = data.response.docs;
         $("#nytSnippet").html(articles[0].snippet.substring(0, 130) + "...");
-        $("#nytSnippet").attr("href", articles[0].web_url)
+        $("#nytSnippetUrl").attr("href", articles[0].web_url)
         $("#nytSnippetUrl").html("Read full NY Times article");
 
     //error handling for failed JSON
