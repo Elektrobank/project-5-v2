@@ -88,6 +88,8 @@ function initMap() {
         zoom: 11
     });
     createMarkers();
+    animateMarkers();
+    stopMarkerAnimation();
 
     //responsive on screen size (24)
     if ($(window).width() < 481) {
@@ -106,7 +108,7 @@ $(window).resize(function () {
 
 //loop to drop markers on map and add marker properties (14, 18, 23)
 function createMarkers() {
-    for (let i = 0; i < locations.length; i++) {
+    for (i = 0; i < locations.length; i++) {
         var loopId = i;
         locations[i].marker = new google.maps.Marker({
             position: locations[i].latlong,
@@ -114,7 +116,17 @@ function createMarkers() {
             title: locations[i].title,
             animation: google.maps.Animation.DROP,
         });
-        //on marker click - animates markers, changes color (2)
+
+        //creates infowindow for each marker (3)
+        locations[i].marker.infowindow = new google.maps.InfoWindow({
+            content: locations[i].title + "</br>" + locations[i].street + "</br>" + locations[i].city
+        });
+    }
+}
+
+//on marker click - animates markers, changes color (2)
+function animateMarkers() {
+    for (i = 0; i < locations.length; i++) {        
         locations[i].marker.addListener('click', function () {
             this.infowindow.open(map, this);
             this.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
@@ -123,23 +135,22 @@ function createMarkers() {
             map.setCenter(this.position);
             nyTimesApiData(loopId);
         });
+    }
+}      
 
-        //creates infowindow for each marker (3)
-        locations[i].marker.infowindow = new google.maps.InfoWindow({
-            content: locations[i].title + "</br>" + locations[i].street + "</br>" + locations[i].city
-        });
-
-        //on map click - closes info windows, stops marker animations, resets map (19)
+//on map click - closes info windows, stops marker animations (19)
+function stopMarkerAnimation() {
+    for (i = 0; i < locations.length; i++) {
         google.maps.event.addListener(map, "click", function (event) {
             for (i = 0; i < locations.length; i++) {
-                var marker = locations[i].marker
+                var marker = locations[i].marker;
                 marker.infowindow.close();
                 marker.setAnimation(null);
                 marker.setIcon();
             }
         });
     }
-};
+}
 
 
 //GET Dark Sky Weather API JSON data, append to Dark Sky widget (4, 5, 6)
@@ -163,14 +174,14 @@ function nyTimesApiData(id) {
     $.getJSON(nytimesUrl, function (data) {
         articles = data.response.docs;
         $("#nytSnippet").html(articles[0].snippet.substring(0, 130) + "...");
-        $("#nytSnippetUrl").attr("href", articles[0].web_url)
+        $("#nytSnippetUrl").attr("href", articles[0].web_url);
         $("#nytSnippetUrl").html("Read full NY Times article");
 
     //error handling for failed JSON
     }).error(function (e) {
         $("#nyTimesBox").text('News Articles Failed to Load!');
     });
-};
+}
        
 //knockout to handle search nav locations array and filtering (15, 16, 17, 20, 21, 22)
 function AppViewModel() {
@@ -197,8 +208,8 @@ function gotoMarker(id) {
     marker.infowindow.open(map, marker);
     marker.setAnimation(google.maps.Animation.BOUNCE);
     map.setZoom(13);
-    map.setCenter(marker.position)
+    map.setCenter(marker.position);
     nyTimesApiData(id);
-};
+}
 
 
