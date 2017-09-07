@@ -1,3 +1,4 @@
+/*jshint loopfunc: true */
 
 //search nav open (8)
 function openNav() {
