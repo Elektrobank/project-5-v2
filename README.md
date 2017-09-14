@@ -8,6 +8,9 @@ This project makes use of the Google Maps API to display the Miami, FL area. The
 * Relevant NY Times articles for each marker location
 * Responsive design to accomodate various browsers and screen sizes
 
+#### To run the app:
+Download ZIP, extract to folder, open index.html with the browser of your choice. 
+
 #### Sources:
 
 1.	https://developers.google.com/maps/documentation/javascript/tutorial
@@ -34,4 +37,5 @@ This project makes use of the Google Maps API to display the Miami, FL area. The
 22.	http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
 23.	https://developers.google.com/maps/documentation/javascript/adding-a-google-map
 24. https://stackoverflow.com/questions/17237935/jquery-execute-scripts-based-on-screen-size
+25. http://knockoutjs.com/documentation/json-data.html
  
