@@ -212,7 +212,7 @@ function AppViewModel() {
     $.getJSON(darkSkyUrl, function (data) {
         var weatherJson = data.currently;
         weatherSummary(weatherJson.summary);
-        weatherTemp(weatherJson.temperature + ' &deg;F')
+        weatherTemp(weatherJson.temperature + ' &deg;F');
         weatherHumidity('Humidity: ' + Math.round(weatherJson.humidity * 100) + '%');
         weatherUv('UV Index: ' + weatherJson.uvIndex);
 
@@ -226,7 +226,7 @@ function AppViewModel() {
     self.nytUrl = ko.observable();
     self.nytUrlText = ko.observable();
 
-    self.nyTimesApiData = function(id) {
+    self.nyTimesApiData = function (id) {
         var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + locations[id].title + '&sort=newest&api-key=005923b487ff4d8bb41847183af3574f';
         $.getJSON(nytimesUrl, function (data) {
             var articles = data.response.docs;
@@ -238,7 +238,7 @@ function AppViewModel() {
         }).fail(function (e) {
             $("#nyTimesBox").text('News Articles Failed to Load!');
         });
-    }
+    };
     
 }
 ko.applyBindings(new AppViewModel());
