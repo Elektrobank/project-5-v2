@@ -101,14 +101,14 @@ function initMap() {
     });
     createMarkers();
     animateMarkers();
-    onMapClick();
-
-    //responsive on screen size (24)
-    if ($(window).width() < 481) {
-        closeNav();
-    } 
-    else openNav();
+    onMapClick();    
 }
+
+//responsive on screen size (24)
+if ($(window).width() < 481) {
+    closeNav();
+}
+else openNav();
 
 //responsive on resize (24)
 $(window).resize(function () {
@@ -139,7 +139,13 @@ function createMarkers() {
 //sets marker visibility
 function setMarkerVisibility() {
     for (i = 0; i < locations.length; i++) {
-        locations[i].marker.setVisible(locations[i].visible);
+        locations[i].marker.setVisible(locations[i].visible);      
+    }
+}
+
+function setAllMarkersVisible() {
+    for (i = 0; i < locations.length; i++) {
+        locations[i].visible(true);
     }
 }
 
@@ -181,14 +187,19 @@ function onMapClick() {
     }
 }
 
-//knockout viewmodel 
-function AppViewModel() {
-    //handles search nav locations array and filtering (15, 16, 17, 20, 21, 22)
-    this.koLocations = ko.observableArray(locations);
-    query = ko.observable('');
-    this.locations = ko.computed(function () {
-        var self = this;
-        var search = self.query().toLowerCase();
+    //knockout viewmodel 
+    function AppViewModel() {
+        //handles search nav locations array and filtering (15, 16, 17, 20, 21, 22)
+        this.koLocations = ko.observableArray(locations);
+        query = ko.observable('');
+        this.locations = ko.computed(function () {
+            var self = this;
+            var search = self.query().toLowerCase();
+            if (!search) {
+                for (i = 0; i < locations.length; i++) {
+                    if (locations[i].marker) locations[i].marker.setVisible(true);
+                }
+            }
         return ko.utils.arrayFilter(locations, function (loc) {
             if (loc.title.toLowerCase().indexOf(search) >= 0) {
                 loc.showLoc(true); // (13)
