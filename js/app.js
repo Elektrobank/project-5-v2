@@ -104,6 +104,13 @@ function initMap() {
     onMapClick();    
 }
 
+function resetMap() {
+    if (map) {
+        initMap();
+    }
+}
+
+
 //responsive on screen size (24)
 if ($(window).width() < 481) {
     closeNav();
